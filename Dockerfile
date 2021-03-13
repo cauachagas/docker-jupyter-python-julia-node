@@ -68,7 +68,7 @@ RUN rm -rf "${HOME}/.local" && \
     rm -rf /tmp/*
 
 # Change to base image user
-USER $NB_UID
+USER $NB_USER
 
 # Additional packages
 RUN npm install dstools
@@ -76,3 +76,5 @@ RUN npm install dstools
 # RUN pip3 install xxxx --no-cache-dir
 
 # RUN conda install xxxx -c channel && conda clean --all
+
+COPY Plotly-NodeJS.ipynb ${HOME}/Plotly-NodeJS.ipynb
