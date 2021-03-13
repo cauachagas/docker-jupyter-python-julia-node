@@ -21,6 +21,7 @@ RUN mkdir "/opt/julia-${JULIA_VERSION}" && \
     echo "${julia_checksum} *julia-${JULIA_VERSION}-linux-x86_64.tar.gz" | sha256sum -c - && \
     tar xzf "julia-${JULIA_VERSION}-linux-x86_64.tar.gz" -C "/opt/julia-${JULIA_VERSION}" --strip-components=1 && \
     rm "julia-${JULIA_VERSION}-linux-x86_64.tar.gz"
+
 RUN ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
 
 # Show Julia where conda libraries are \
@@ -66,7 +67,8 @@ RUN mv "${HOME}/.local/share/jupyter/kernels/"* "${CONDA_DIR}/share/jupyter/kern
 RUN rm -rf "${HOME}/.local" && \
     rm -rf /tmp/*
 
-USER jovyan
+# Change to base image user
+USER $NB_UID
 
 # Additional packages
 RUN npm install dstools
